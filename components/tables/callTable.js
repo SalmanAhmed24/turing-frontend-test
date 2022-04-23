@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -13,6 +13,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DetailModal from '../modals/detailModal';
+import ViewNotesModal from '../modals/viewNotesModal';
 
 // This method is created for cross-browser compatibility, if you don't
 // need to support IE11, you can use Array.prototype.sort() directly
@@ -88,12 +89,14 @@ function EnhancedTableHead(props) {
 }
 
 export default function CallTable({ callData, reloadData }) {
-	const [ order, setOrder ] = React.useState('asc');
-	const [ orderBy, setOrderBy ] = React.useState('calories');
-	const [ selected, setSelected ] = React.useState([]);
-	const [ itemId, setItemId ] = React.useState();
-	const [ detailFlag, setDetailFlag ] = React.useState();
-	const [ dropDownFlag, setDropdownFlag ] = React.useState(false);
+	const [ order, setOrder ] = useState('asc');
+	const [ orderBy, setOrderBy ] = useState('calories');
+	const [ selected, setSelected ] = useState([]);
+	const [ itemId, setItemId ] = useState();
+	const [ detailFlag, setDetailFlag ] = useState();
+	const [ dropDownFlag, setDropdownFlag ] = useState(false);
+	const [ notes, setNotes ] = useState(false);
+	const [ viewModal, setViewModal ] = useState(false);
 	const handleRequestSort = (event, property) => {
 		const isAsc = orderBy === property && order === 'asc';
 		setOrder(isAsc ? 'desc' : 'asc');
@@ -157,6 +160,12 @@ export default function CallTable({ callData, reloadData }) {
 			})
 			.catch((err) => {});
 	};
+	const openView = (notes, id) => {
+		setNotes(notes);
+		setItemId(id);
+		toggleViewModal();
+	};
+	const toggleViewModal = () => setViewModal(!viewModal);
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Paper sx={{ width: '100%', mb: 2 }}>
@@ -204,7 +213,11 @@ export default function CallTable({ callData, reloadData }) {
 										<TableCell>{row.to}</TableCell>
 										<TableCell>{row.via}</TableCell>
 										<TableCell>
-											{row.notes && row.notes.length ? <button>View</button> : '--'}
+											{row.notes && row.notes.length ? (
+												<button onClick={() => openView(row.notes, row.id)}>View</button>
+											) : (
+												'--'
+											)}
 										</TableCell>
 										<TableCell>{row.call_type}</TableCell>
 										<TableCell>{row.direction}</TableCell>
@@ -222,6 +235,13 @@ export default function CallTable({ callData, reloadData }) {
 												modalFlag={detailFlag}
 												id={itemId}
 												toggleDrawer={openDetailModal}
+											/>
+										) : null}
+										{viewModal && itemId == row.id ? (
+											<ViewNotesModal
+												notes={notes}
+												modalFlag={viewModal}
+												modalHandler={toggleViewModal}
 											/>
 										) : null}
 									</TableRow>
