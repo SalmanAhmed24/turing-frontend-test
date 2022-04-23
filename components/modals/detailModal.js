@@ -24,52 +24,54 @@ export default function DetailModal({ modalFlag, toggleDrawer, id }) {
 			});
 	}, []);
 	return (
-		<Drawer className="cusDrawer" anchor={'right'} open={modalFlag} onClose={() => toggleDrawer()}>
-			<div className="closeWrap">
-				<CloseIcon onClick={() => toggleDrawer()} sx={{ fontSize: 25 }} />
-			</div>
-			{loaderFlag ? (
-				<p style={{ padding: '0px 20px' }}>loading....</p>
-			) : (
-				<div className="detailWrap">
-					<h2>Call Details</h2>
-					<div className="allInfo">
-						<h4>
-							Call Type: <span>{detail.call_type}</span>
-						</h4>
-						<h4>
-							Created At: <span>{detail.created_at}</span>
-						</h4>
-						<h4>
-							Direction: <span>{detail.direction}</span>
-						</h4>
-						<h4>
-							Duration: <span>{detail.duration}</span>
-						</h4>
-						<h4>
-							From: <span>{detail.from}</span>
-						</h4>
-						<h4>
-							To: <span>{detail.to}</span>
-						</h4>
-						<h4>
-							Via: <span>{detail.via}</span>
-						</h4>
-						<h4>Notes</h4>
-						{detail.notes.length ? (
-							detail.notes.map((i) => {
-								return (
-									<div key={i} className="card">
-										<p>{i}</p>
-									</div>
-								);
-							})
-						) : (
-							<p>No notes found</p>
-						)}
-					</div>
+		<div>
+			<Drawer className="cusDrawer" anchor={'right'} open={modalFlag} onClose={() => toggleDrawer()}>
+				<div className="closeWrap">
+					<CloseIcon onClick={() => toggleDrawer()} sx={{ fontSize: 25 }} />
 				</div>
-			)}
-		</Drawer>
+				{loaderFlag ? (
+					<p style={{ padding: '0px 20px' }}>loading....</p>
+				) : (
+					<div className="detailWrap">
+						<h2>Call Details</h2>
+						<div className="allInfo">
+							<h4>
+								Call Type: <span>{detail.call_type}</span>
+							</h4>
+							<h4>
+								Created At: <span>{detail.created_at}</span>
+							</h4>
+							<h4>
+								Direction: <span>{detail.direction}</span>
+							</h4>
+							<h4>
+								Duration: <span>{detail.duration}</span>
+							</h4>
+							<h4>
+								From: <span>{detail.from}</span>
+							</h4>
+							<h4>
+								To: <span>{detail.to}</span>
+							</h4>
+							<h4>
+								Via: <span>{detail.via}</span>
+							</h4>
+							<h4>Notes</h4>
+							{detail && detail.notes && detail.notes.length ? (
+								detail.notes.map((i) => {
+									return (
+										<div key={i.id} className="card">
+											<p>{i.content}</p>
+										</div>
+									);
+								})
+							) : (
+								<p>No notes found</p>
+							)}
+						</div>
+					</div>
+				)}
+			</Drawer>
+		</div>
 	);
 }
