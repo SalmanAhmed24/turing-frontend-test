@@ -59,7 +59,7 @@ export default function DetailModal({ modalFlag, toggleDrawer, id }) {
 						{detail.notes.length ? (
 							detail.notes.map((i) => {
 								return (
-									<div className="card">
+									<div key={i} className="card">
 										<p>{i}</p>
 									</div>
 								);
