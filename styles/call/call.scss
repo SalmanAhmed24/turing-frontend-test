@@ -1,0 +1,79 @@
+.callWrapMain {
+	padding: 30px 70px;
+}
+.cusPagination {
+	display: flex;
+	width: 400px;
+	list-style: none;
+	li {
+		align-self: center;
+		margin-left: 5px;
+		margin-right: 5px;
+		transition: 0.3s ease-in-out;
+		&:hover {
+			color: #a2a2a2;
+			cursor: pointer;
+		}
+	}
+	.rc-pagination-item-active {
+		color: #0070f3;
+		font-weight: bold;
+	}
+}
+.Dropdown {
+	position: absolute;
+	top: 40px;
+	width: 150px;
+	padding: 5px;
+	background-color: #fff;
+	border: 1px solid #a2a2a2;
+	box-shadow: 0 0 5px #a2a2a2;
+	border-radius: 5px;
+	right: 80px;
+	padding: 10px 10px;
+	p {
+		margin: 0;
+		border-bottom: 1px solid #cfcfcf;
+		transition: 0.3s ease-in-out;
+		&:last-child {
+			border-bottom: none;
+		}
+		&:hover {
+			cursor: pointer;
+			color: #0070f3;
+		}
+	}
+}
+.cusDrawer {
+	.MuiPaper-root {
+		width: 40vw;
+	}
+}
+.detailWrap {
+	padding: 0px 20px;
+	h2 {
+		margin-top: 0px !important;
+	}
+	.allInfo {
+		h4 {
+			span {
+				display: inline-block;
+				margin-left: 5px;
+				font-weight: 300;
+				text-transform: capitalize;
+			}
+		}
+	}
+}
+.closeWrap {
+	display: flex;
+	justify-content: flex-end;
+	margin: 0;
+	padding-top: 10px;
+	padding-right: 20px;
+	&:first-child {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
